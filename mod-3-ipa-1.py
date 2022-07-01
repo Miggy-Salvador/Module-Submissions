@@ -34,7 +34,7 @@ def shift_letter(letter, shift):
     list_1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     
     if letter==" ":
-        return print('" "')
+        return (' ')
     
     else:
         return list_1[(list_1.index(letter) + shift)%26]
@@ -109,7 +109,7 @@ def shift_by_letter(letter, letter_shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     alphabet=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     if letter==" ":
-        return print('" "')
+        return (' ')
     
     else:
         return alphabet[(alphabet.index(letter) + alphabet.index(letter_shift))%26]
@@ -142,35 +142,84 @@ def vigenere_cipher(message, key):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     new_text = ""
-
-    for c_char, d_char in zip(message,key):
-
-        if c_char.isupper():
-                
-            c_unicode = ord(c_char)
-
-            c_index = ord(c_char) - ord("A")
-                
-            d_unicode = ord(d_char)
-
-            d_index = ord(d_char) - ord("A")
-            
-            
-            new_index = (c_index + d_index) % 26
-
-            new_unicode = new_index + ord("A")
-
-            new_character = chr(new_unicode)
+    result = ""
+    deductions = 0
     
-            new_text = new_text + new_character
-            
-        else:
-        
-            new_text += c_char
-        
-            
-    return f'{new_text}'
+    if len(message)!=len(key):
+        n=len(message)
+        for i in range(n):
 
+            if (message[i] != " "):
+                deductions+=0
+                    
+                if deductions>=len(key):
+                        result += key[(i % len(key))-(deductions % len(key))]
+                    
+                elif deductions<=len(key):
+                        result += key[(i % len(key))- deductions]
+                    
+            else: 
+                deductions+=1
+                result += " "
+                    
+        for c_char, d_char in zip(message,result):
+        
+            if c_char.isupper():
+                
+                c_unicode = ord(c_char)
+
+                c_index = ord(c_char) - ord("A")
+                
+                d_unicode = ord(d_char)
+
+                d_index = ord(d_char) - ord("A")
+            
+            
+                new_index = (c_index + d_index) % 26
+
+                new_unicode = new_index + ord("A")
+
+                new_character = chr(new_unicode)
+    
+                new_text = new_text + new_character
+            
+            else:
+        
+                new_text += c_char
+        
+            
+        return f'{new_text}'
+        
+    else: 
+    
+        for c_char, d_char in zip(message,key):
+        
+            if c_char.isupper():
+                
+                c_unicode = ord(c_char)
+
+                c_index = ord(c_char) - ord("A")
+                
+                d_unicode = ord(d_char)
+
+                d_index = ord(d_char) - ord("A")
+            
+            
+                new_index = (c_index + d_index) % 26
+
+                new_unicode = new_index + ord("A")
+
+                new_character = chr(new_unicode)
+    
+                new_text = new_text + new_character
+            
+            else:
+        
+                new_text += c_char
+        
+            
+        return f'{new_text}'
+    
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
     15 points.
