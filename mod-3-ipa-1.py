@@ -143,24 +143,11 @@ def vigenere_cipher(message, key):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     new_text = ""
     result = ""
-    deductions = 0
     
     if len(message)!=len(key):
         n=len(message)
         for i in range(n):
-
-            if (message[i] != " "):
-                deductions+=0
-                    
-                if deductions>=len(key):
-                        result += key[(i % len(key))-(deductions % len(key))]
-                    
-                elif deductions<=len(key):
-                        result += key[(i % len(key))- deductions]
-                    
-            else: 
-                deductions+=1
-                result += " "
+            result += key[(i % len(key))]
                     
         for c_char, d_char in zip(message,result):
         
